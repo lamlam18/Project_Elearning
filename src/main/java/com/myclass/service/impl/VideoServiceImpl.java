@@ -12,17 +12,18 @@ import com.myclass.repository.VideoRepository;
 import com.myclass.service.VideoService;
 
 @Service
-public class VideoServiceImpl implements VideoService{
+public class VideoServiceImpl implements VideoService {
 	private VideoRepository videoRepository;
+
 	public VideoServiceImpl(VideoRepository videoRepository) {
-	this.videoRepository = videoRepository;
+		this.videoRepository = videoRepository;
 	}
-	
+
 	@Override
 	public List<VideoDto> getAll() {
 		List<VideoDto> dtos = new ArrayList<VideoDto>();
 		try {
-			List<Video> entities =  videoRepository.findAll();
+			List<Video> entities = videoRepository.findAll();
 			for (Video video : entities) {
 				VideoDto dto = new VideoDto();
 				dto.setId(video.getId());
@@ -41,7 +42,7 @@ public class VideoServiceImpl implements VideoService{
 
 	@Override
 	public boolean insert(VideoDto dto) {
-		if(videoRepository.findByTitle(dto.getTitle()) != null)
+		if (videoRepository.findByTitle(dto.getTitle()) != null)
 			return false;
 		Video entity = new Video();
 		entity.setTitle(dto.getTitle());
@@ -56,7 +57,7 @@ public class VideoServiceImpl implements VideoService{
 	public VideoDto getById(int id) {
 		VideoDto dto = new VideoDto();
 		try {
-			Video entity =  videoRepository.findById(id).get();
+			Video entity = videoRepository.findById(id).get();
 			dto.setId(entity.getId());
 			dto.setTitle(entity.getTitle());
 			dto.setUrl(entity.getUrl());
@@ -69,8 +70,12 @@ public class VideoServiceImpl implements VideoService{
 	}
 
 	@Override
-	public void delete(int id) {
-		videoRepository.deleteById(id);
+	public boolean delete(int id) {
+		if (videoRepository.existsById(id)) {
+			videoRepository.deleteById(id);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -93,7 +98,7 @@ public class VideoServiceImpl implements VideoService{
 		}
 		return dtos;
 	}
-	
+
 	public int getTimeCount(int courseId) {
 		int timeCount = 0;
 		try {

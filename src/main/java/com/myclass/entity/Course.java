@@ -19,66 +19,67 @@ import javax.persistence.Table;
 public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id" , length = 20)
-	private int 	id;
-	
-	@Column(name = "title" , nullable = false , length = 255)
-	private String	title;
-	
-	@Column(name = "image" , length = 255)
-	private String	image;
-	
-	@Column(name = "lectures_count" , length = 11)
-	private int lecture;
-	
-	@Column(name = "hour_count" , length = 11)
-	private int hour;
-	
-	@Column(name = "view_count" , length = 11)
-	private int view;
-	
-	@Column(name = "price" )
+	@Column(name = "id", length = 20)
+	private int id;
+
+	@Column(name = "title", nullable = false, length = 255)
+	private String title;
+
+	@Column(name = "image", length = 255)
+	private String image;
+
+	@Column(name = "lectures_count", length = 11)
+	private int lectureCount;
+
+	@Column(name = "hour_count", length = 11)
+	private int hourCount;
+
+	@Column(name = "view_count", length = 11)
+	private int viewCount;
+
+	@Column(name = "price")
 	private float price;
-	
+
 	@Column(name = "discount")
-	private int	discount;
-	
+	private int discount;
+
 	@Column(name = "promotion_price")
 	private float promotionPrice;
-	
-	@Column(name = "description" , nullable = false)
-	private String	desciption;
-	
+
+	@Column(name = "description", nullable = false)
+	private String desciption;
+
 	@Column(name = "content")
 	private String content;
-	
+
 	@Column(name = "category_id")
 	private int categoryId;
-	
+
 	@Column(name = "last_update")
 	private Date lastUpdate;
-	
-	@ManyToOne
-	@JoinColumn(name = "category_id" , insertable = false , updatable = false)
-	private Category category;
-	
-	@OneToMany(mappedBy = "course" , fetch =  FetchType.LAZY)
-	private List<Video> videos;
-	
-	@OneToMany(mappedBy = "course" , fetch = FetchType.LAZY)
-	private List<Target> targets;
-	
-	public Course() {}
 
-	public Course(int id, String title, String image, int lecture, int hour, int view, float price, int discount,
-			float promotionPrice, String desciption, String content, int categoryId, Date lastUpdate) {
+	@ManyToOne
+	@JoinColumn(name = "category_id", insertable = false, updatable = false)
+	private Category category;
+
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+	private List<Video> videos;
+
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+	private List<Target> targets;
+
+	public Course() {
+	}
+
+	public Course(int id, String title, String image, int lectureCount, int hourCount, int viewCount, float price,
+			int discount, float promotionPrice, String desciption, String content, int categoryId, Date lastUpdate) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.image = image;
-		this.lecture = lecture;
-		this.hour = hour;
-		this.view = view;
+		this.lectureCount = lectureCount;
+		this.hourCount = hourCount;
+		this.viewCount = viewCount;
 		this.price = price;
 		this.discount = discount;
 		this.promotionPrice = promotionPrice;
@@ -120,28 +121,28 @@ public class Course {
 		this.image = image;
 	}
 
-	public int getLecture() {
-		return lecture;
+	public int getLectureCount() {
+		return lectureCount;
 	}
 
-	public void setLecture(int lecture) {
-		this.lecture = lecture;
+	public void setLectureCount(int lectureCount) {
+		this.lectureCount = lectureCount;
 	}
 
-	public int getHour() {
-		return hour;
+	public int getHourCount() {
+		return hourCount;
 	}
 
-	public void setHour(int hour) {
-		this.hour = hour;
+	public void setHourCount(int hourCount) {
+		this.hourCount = hourCount;
 	}
 
-	public int getView() {
-		return view;
+	public int getViewCount() {
+		return viewCount;
 	}
 
-	public void setView(int view) {
-		this.view = view;
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
 	}
 
 	public float getPrice() {

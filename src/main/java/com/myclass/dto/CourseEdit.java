@@ -2,43 +2,31 @@ package com.myclass.dto;
 
 import java.sql.Date;
 
-public class CourseDto {
-	private int		id;
+public class CourseEdit {
+	private int id;
 	private String	title;
 	private String	image;
-	private int		lectureCount;
-	private int		hourCount;
-	private int		viewCount;
 	private float	price;
 	private int		discount;
-	private float	promotionPrice;
 	private String	desciption;
 	private String	content;
 	private int		categoryId;
 	private Date	lastUpdate;
-	private String	cateName;
+	
+	public CourseEdit() {}
 
-	public CourseDto() {
-	}
-
-	public CourseDto(int id, String title, String image, int lecture, int hour, int viewCount, float price,
-			int discount, float promotionPrice, String desciption, String content, int categoryId, Date lastUpdate,
-			String cateName) {
+	public CourseEdit(int id, String title, String image, float price, int discount, String desciption, String content,
+			int categoryId, Date lastUpdate) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.image = image;
-		this.lectureCount = lecture;
-		this.hourCount = hour;
-		this.viewCount = viewCount;
 		this.price = price;
 		this.discount = discount;
-		this.promotionPrice = promotionPrice;
 		this.desciption = desciption;
 		this.content = content;
 		this.categoryId = categoryId;
 		this.lastUpdate = lastUpdate;
-		this.cateName = cateName;
 	}
 
 	public int getId() {
@@ -65,34 +53,6 @@ public class CourseDto {
 		this.image = image;
 	}
 
-	public int getLectureCount() {
-		return lectureCount;
-	}
-
-	public void setLectureCount(int lectureCount) {
-		this.lectureCount = lectureCount;
-	}
-
-	public int getHourCount() {
-		return hourCount;
-	}
-
-	public void setHourCount(int hourCount) {
-		this.hourCount = hourCount;
-	}
-
-	public int getViewCount() {
-		return viewCount;
-	}
-
-	public void setViewCount(int viewCount) {
-		this.viewCount = viewCount;
-	}
-
-	public Date getLastUpdate() {
-		return lastUpdate;
-	}
-
 	public float getPrice() {
 		return price;
 	}
@@ -107,14 +67,6 @@ public class CourseDto {
 
 	public void setDiscount(int discount) {
 		this.discount = discount;
-	}
-
-	public float getPromotionPrice() {
-		return promotionPrice;
-	}
-
-	public void setPromotionPrice(float promotionPrice) {
-		this.promotionPrice = promotionPrice;
 	}
 
 	public String getDesciption() {
@@ -141,20 +93,12 @@ public class CourseDto {
 		this.categoryId = categoryId;
 	}
 
-	public Date getLastUpdate(Date date) {
+	public Date getLastUpdate() {
 		return lastUpdate;
 	}
 
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
-
-	public String getCateName() {
-		return cateName;
-	}
-
-	public void setCateName(String cateName) {
-		this.cateName = cateName;
-	}
-
+	
 }

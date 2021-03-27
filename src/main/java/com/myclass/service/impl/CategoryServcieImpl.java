@@ -53,21 +53,26 @@ public class CategoryServcieImpl implements CategoryService {
 		Category entity = categoryRepository.findById(id).get();
 		return new CategoryDto(entity.getId(), entity.getName(), entity.getIcon());
 	}
-	
+
 	@Override
-	public void update(int id, CategoryDto dto) {
+	public boolean update(int id, CategoryDto dto) {
 		if (categoryRepository.existsById(id)) {
 			Category entity = categoryRepository.findById(id).get();
 			entity.setName(dto.getName());
 			entity.setIcon(dto.getIcon());
 			categoryRepository.save(entity);
+			return true;
 		}
+		return false;
 	}
 
 	@Override
-	public void remove(int id) {
-		// TODO Auto-generated method stub
-		categoryRepository.deleteById(id);
+	public boolean remove(int id) {
+		if (categoryRepository.existsById(id)) {
+			categoryRepository.deleteById(id);
+			return true;
+		}
+		return false;
 	}
 
 }

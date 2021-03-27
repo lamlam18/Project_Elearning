@@ -12,8 +12,8 @@ public interface RoleService {
 
 	RoleDto getByid(int id);
 
-	void edit(int id, RoleDto dto);
+	boolean edit(int id, RoleDto dto);
 
-	void remove(int id);
+	boolean remove(int id);
 
 }

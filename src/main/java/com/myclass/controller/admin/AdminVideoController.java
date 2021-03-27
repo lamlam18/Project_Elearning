@@ -19,42 +19,39 @@ import com.myclass.service.VideoService;
 @RequestMapping("api/admin/video")
 public class AdminVideoController {
 	private VideoService videoService;
+
 	public AdminVideoController(VideoService videoService) {
 		this.videoService = videoService;
 	}
-	
+
 	@GetMapping("")
 	public Object get() {
 		try {
-			List<VideoDto> dtos =  videoService.getAll();
+			List<VideoDto> dtos = videoService.getAll();
 			return new ResponseEntity<Object>(dtos, HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);	
+		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@PostMapping("")
 	public Object post(@RequestBody VideoDto dto) {
-		if(videoService.insert(dto))
+		if (videoService.insert(dto))
 			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@GetMapping("{/id}")
 	public Object get(@PathVariable int id) {
-		VideoDto dto =  videoService.getById(id);
+		VideoDto dto = videoService.getById(id);
 		return new ResponseEntity<Object>(dto, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("{/id}")
 	public Object delete(@PathVariable int id) {
-		try {
-			videoService.delete(id);
+		if (videoService.delete(id))
 			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

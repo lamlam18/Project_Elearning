@@ -21,21 +21,22 @@ import com.myclass.service.CategoryService;
 @RequestMapping("api/admin/category")
 public class AdminCategoryController {
 	private CategoryService categoryService;
+
 	public AdminCategoryController(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
-	
+
 	@GetMapping("")
 	public Object get() {
 		try {
-			List<CategoryDto> dtos =  categoryService.getAll();
+			List<CategoryDto> dtos = categoryService.getAll();
 			return new ResponseEntity<Object>(dtos, HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return  new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@PostMapping("")
 	public Object post(@RequestBody CategoryDto dto) {
 		if (categoryService.insert(dto) == false) {
@@ -43,7 +44,7 @@ public class AdminCategoryController {
 		}
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
 	public Object get(@PathVariable int id) {
 		try {
@@ -54,25 +55,18 @@ public class AdminCategoryController {
 		}
 		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@PutMapping("/{id}")
-	public Object put(@PathVariable int id , @RequestBody CategoryDto dto) { 
-		try {
-			categoryService.update(id , dto);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+	public Object put(@PathVariable int id, @RequestBody CategoryDto dto) {
+		if (categoryService.update(id, dto))
+			return new ResponseEntity<>(HttpStatus.OK);
 		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public Object delete(@PathVariable int id) {
-		try {
-			categoryService.remove(id);
+		if (categoryService.remove(id))
 			return new ResponseEntity<Object>(HttpStatus.OK);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 	}
 }

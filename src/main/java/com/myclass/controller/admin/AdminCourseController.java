@@ -7,11 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myclass.dto.CourseDetailsDto;
 import com.myclass.dto.CourseDto;
+import com.myclass.dto.CourseEdit;
 import com.myclass.dto.TargetDto;
 import com.myclass.dto.VideoDto;
 import com.myclass.service.CourseService;
@@ -43,13 +46,8 @@ public class AdminCourseController {
 	
 	@DeleteMapping("/{id}")
 	public Object delete(@PathVariable int id) {
-		try {
-			if (courseService.remove(id))
-				return new ResponseEntity<Object>(HttpStatus.OK);
-			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		if (courseService.remove(id))
+			return new ResponseEntity<Object>(HttpStatus.OK);
 		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 	}
 	
@@ -67,5 +65,11 @@ public class AdminCourseController {
 		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 	}
 	
+	@PutMapping("/{id}")
+	public Object put(@PathVariable int id , @RequestBody CourseEdit dto) {
+		if(courseService.edit(id, dto))
+			return new ResponseEntity<Object>(HttpStatus.OK);
+		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+	}
 	
 }

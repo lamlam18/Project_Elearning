@@ -12,55 +12,50 @@ import com.myclass.repository.UserRepository;
 import com.myclass.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
+
 	public UserServiceImpl(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
-	
+
 	@Override
 	public List<UserDto> getAll() {
-		// TODO Auto-generated method stub
 		List<UserDto> dtos = userRepository.findAllUserRole();
 		return dtos;
 	}
 
 	@Override
-	public void insert(UserDto dto) {
-		try {
-			
-			if (userRepository.findByEmail(dto.getEmail()) == null) {
-				String hashed = BCrypt.hashpw(dto.getPassword(), BCrypt.gensalt(12));
-				User entity = new  User(dto.getId(), dto.getEmail(), dto.getFullname(),
-						hashed, dto.getAvatar(), dto.getPhone(),
-						dto.getAddress() , dto.getRoleId());
-				userRepository.save(entity);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
+	public boolean insert(UserDto dto) {
+		if (userRepository.findByEmail(dto.getEmail()) == null) {
+			String hashed = BCrypt.hashpw(dto.getPassword(), BCrypt.gensalt(12));
+			User entity = new User(dto.getId(), dto.getEmail(), dto.getFullname(), hashed, dto.getAvatar(),
+					dto.getPhone(), dto.getAddress(), dto.getRoleId());
+			userRepository.save(entity);
+			return true;
 		}
-
+		return false;
 	}
 
 	@Override
 	public List<UserDto> getById(int id) {
-		// TODO Auto-generated method stub
-		List<UserDto>  dtos = userRepository.findByIdUserRole(id);
-//		UserDto dto = new UserDto(entity.getId(), entity.getEmail(), entity.getFullname(),
-//					entity.getPassword(), entity.getAvatar(), entity.getPhone(),
-//					entity.getAddress() , entity.getRoleId());
+		List<UserDto> dtos = userRepository.findByIdUserRole(id);
 		return dtos;
 	}
 
 	@Override
-	public void remove(int id) {
-		userRepository.deleteById(id);
+	public boolean remove(int id) {
+		if (userRepository.existsById(id)) {
+			userRepository.deleteById(id);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
-	public void edit(int id, UserDto dto) {
+	public boolean edit(int id, UserDto dto) {
 		if (userRepository.existsById(id)) {
-			User entity =  userRepository.findById(id).get();
+			User entity = userRepository.findById(id).get();
 			entity.setId(id);
 			entity.setEmail(dto.getEmail());
 			entity.setAddress(dto.getAddress());
@@ -70,6 +65,8 @@ public class UserServiceImpl implements UserService{
 			entity.setPhone(dto.getPhone());
 			entity.setRoleId(dto.getRoleId());
 			userRepository.save(entity);
+			return true;
 		}
+		return false;
 	}
 }

@@ -12,7 +12,7 @@ public interface VideoService {
 
 	VideoDto getById(int id);
 
-	void delete(int id);
+	boolean delete(int id);
 	
 	List<VideoDto> getByCourseId(int courseId);
 	

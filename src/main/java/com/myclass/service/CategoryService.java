@@ -3,7 +3,6 @@ package com.myclass.service;
 import java.util.List;
 
 import com.myclass.dto.CategoryDto;
-import com.myclass.entity.Category;
 
 public interface CategoryService {
 
@@ -12,10 +11,9 @@ public interface CategoryService {
 	boolean insert(CategoryDto dto);
 
 	CategoryDto getById(int id);
-
 	
-	void update(int id, CategoryDto dto);
+	boolean update(int id, CategoryDto dto);
 
-	void remove(int id);
+	boolean remove(int id);
 
 }

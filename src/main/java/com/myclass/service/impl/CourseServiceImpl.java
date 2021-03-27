@@ -7,25 +7,30 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.myclass.dto.CourseDetailsDto;
 import com.myclass.dto.CourseDto;
+import com.myclass.dto.CourseEdit;
+import com.myclass.dto.VideoDto;
 import com.myclass.entity.Course;
+import com.myclass.entity.Video;
 import com.myclass.repository.CourseRepository;
 import com.myclass.service.CourseService;
 import com.myclass.service.VideoService;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
-public class CourseServiceImpl implements CourseService{
+public class CourseServiceImpl implements CourseService {
 	private CourseRepository courseRepository;
 	private VideoService videoService;
-	public CourseServiceImpl(CourseRepository courseRepository , VideoService videoService) {
+
+	public CourseServiceImpl(CourseRepository courseRepository, VideoService videoService) {
 		this.courseRepository = courseRepository;
 		this.videoService = videoService;
 	}
-	
+
 	@Override
 	public List<CourseDto> getAll() {
-			List<CourseDto> dtos = new ArrayList<CourseDto>();
+		List<CourseDto> dtos = new ArrayList<CourseDto>();
 		try {
 			List<Course> entities = courseRepository.findAll();
 			for (Course entity : entities) {
@@ -33,9 +38,9 @@ public class CourseServiceImpl implements CourseService{
 				dto.setId(entity.getId());
 				dto.setTitle(entity.getTitle());
 				dto.setImage(entity.getImage());
-				dto.setLecture(videoService.getByCourseId(entity.getId()).size());
-				dto.setHour(videoService.getTimeCount(entity.getId()));
-				dto.setView(entity.getView());
+				dto.setLectureCount(videoService.getByCourseId(entity.getId()).size());
+				dto.setHourCount(videoService.getTimeCount(entity.getId()));
+				dto.setViewCount(entity.getViewCount());
 				dto.setPrice(entity.getPrice());
 				dto.setDiscount(entity.getDiscount());
 				dto.setPromotionPrice(promotionPrice(entity.getPrice(), entity.getDiscount()));
@@ -58,9 +63,9 @@ public class CourseServiceImpl implements CourseService{
 		dto.setId(entity.getId());
 		dto.setTitle(entity.getTitle());
 		dto.setImage(entity.getImage());
-		dto.setLecture(videoService.getByCourseId(entity.getId()).size());
-		dto.setHour(videoService.getTimeCount(entity.getId()));
-		dto.setView(entity.getView());
+		dto.setLectureCount(videoService.getByCourseId(entity.getId()).size());
+		dto.setHourCount(videoService.getTimeCount(entity.getId()));
+		dto.setViewCount(entity.getViewCount());
 		dto.setPrice(entity.getPrice());
 		dto.setDiscount(entity.getDiscount());
 		dto.setPromotionPrice(promotionPrice(entity.getPrice(), entity.getDiscount()));
@@ -70,15 +75,33 @@ public class CourseServiceImpl implements CourseService{
 		dto.getLastUpdate(entity.getLastUpdate());
 		return dto;
 	}
-	
-	public float promotionPrice(float price , float discount) {
-		return  price - (price * discount / 100);
+
+	public float promotionPrice(float price, float discount) {
+		return price - (price * discount / 100);
 	}
 
 	@Override
 	public boolean remove(int id) {
 		if (courseRepository.findById(id) != null) {
 			courseRepository.deleteById(id);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean edit(int id, CourseEdit dto) {
+		if (courseRepository.findById(id) != null) {
+			Course entity = courseRepository.findById(id).get();
+			entity.setTitle(dto.getTitle());
+			entity.setImage(dto.getImage());
+			entity.setPrice(dto.getPrice());
+			entity.setDiscount(dto.getDiscount());
+			entity.setDesciption(dto.getDesciption());
+			entity.setLastUpdate(entity.getLastUpdate());
+			entity.setContent(dto.getContent());
+			entity.setCategoryId(dto.getCategoryId());
+			courseRepository.save(entity);
 			return true;
 		}
 		return false;
