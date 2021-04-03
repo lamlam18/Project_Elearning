@@ -13,8 +13,8 @@ import javax.persistence.Table;
 @Table(name = "videos")
 public class Video {
 	@Id
-	@Column(name = "id" , length = 11 , columnDefinition = "NOT NULL")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id" , length = 11 )
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name = "title" , length = 255)

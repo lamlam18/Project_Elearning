@@ -18,4 +18,6 @@ public interface VideoService {
 	
 	int getTimeCount(int courseId);
 
+	boolean edit(int id, VideoDto dto);
+
 }

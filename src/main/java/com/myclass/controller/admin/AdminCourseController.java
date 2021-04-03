@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myclass.dto.CourseDetailsDto;
 import com.myclass.dto.CourseDto;
-import com.myclass.dto.CourseEdit;
 import com.myclass.dto.TargetDto;
 import com.myclass.dto.VideoDto;
 import com.myclass.service.CourseService;
@@ -66,10 +66,11 @@ public class AdminCourseController {
 	}
 	
 	@PutMapping("/{id}")
-	public Object put(@PathVariable int id , @RequestBody CourseEdit dto) {
-		if(courseService.edit(id, dto))
+	public Object put(@PathVariable int id , @RequestBody CourseDto dto ) {
+		if(courseService.edit(id, dto ))
 			return new ResponseEntity<Object>(HttpStatus.OK);
 		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 	}
+	
 	
 }

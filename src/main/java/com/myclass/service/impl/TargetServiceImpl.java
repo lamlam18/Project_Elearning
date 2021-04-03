@@ -28,7 +28,6 @@ public class TargetServiceImpl implements TargetService{
 				dto.setTitle(target.getTitle());
 				dto.setCourseId(target.getCourseId());
 				dtos.add(dto);
-				return dtos;
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

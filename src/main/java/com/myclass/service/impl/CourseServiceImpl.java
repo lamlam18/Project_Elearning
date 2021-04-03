@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.myclass.dto.CourseDetailsDto;
 import com.myclass.dto.CourseDto;
-import com.myclass.dto.CourseEdit;
 import com.myclass.dto.VideoDto;
 import com.myclass.entity.Course;
 import com.myclass.entity.Video;
@@ -90,21 +89,35 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public boolean edit(int id, CourseEdit dto) {
+	public boolean edit(int id, CourseDto dto ) {
 		if (courseRepository.findById(id) != null) {
 			Course entity = courseRepository.findById(id).get();
 			entity.setTitle(dto.getTitle());
 			entity.setImage(dto.getImage());
+			entity.setViewCount(dto.getViewCount());
 			entity.setPrice(dto.getPrice());
 			entity.setDiscount(dto.getDiscount());
 			entity.setDesciption(dto.getDesciption());
-			entity.setLastUpdate(entity.getLastUpdate());
 			entity.setContent(dto.getContent());
 			entity.setCategoryId(dto.getCategoryId());
+			entity.setLastUpdate(dto.getLastUpdate());
 			courseRepository.save(entity);
 			return true;
 		}
 		return false;
 	}
+
+	@Override
+	public List<CourseDto> findByUserCourse(int id) {
+		List<CourseDto> listCourse = new ArrayList<CourseDto>();
+		try {
+			List<Course>entities = courseRepository.findAllById(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+
+
 
 }

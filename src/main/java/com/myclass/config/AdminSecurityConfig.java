@@ -60,15 +60,15 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-		.antMatcher("/api/admin/**")
-		.authorizeRequests()
-		.antMatchers("/api/admin/login")
-		.permitAll()
-		.antMatchers("/api/admin/**")
-		.hasAnyRole("ADMIN")
-		.anyRequest()
-		.authenticated();
+//		http.csrf().disable()
+//		.antMatcher("/api/admin/**")
+//		.authorizeRequests()
+//		.antMatchers("/api/admin/login")
+//		.permitAll()
+//		.antMatchers("/api/admin/**")
+//		.hasAnyRole("ADMIN")
+//		.anyRequest()
+//		.authenticated();
 		
 		http.addFilter(new AuthFilter(authenticationManager(), userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -53,11 +53,11 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable()
-			.antMatcher("/api/**")
-			.authorizeRequests()
-			.antMatchers("/api/user/profile")
-			.authenticated();
+//			http.csrf().disable()
+//			.antMatcher("/api/**")
+//			.authorizeRequests()
+//			.antMatchers("/api/user/profile")
+//			.authenticated();
 			
 			http.addFilter(new AuthFilter(authenticationManager(), userDetailsService));
 			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

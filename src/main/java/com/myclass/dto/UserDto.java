@@ -42,6 +42,16 @@ public class UserDto {
 	
 	
 
+	
+
+	public UserDto(int id, String email, String fullname, int roleId) {
+		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.email = email;
+		this.fullname = fullname;
+		this.roleId = roleId;
+	}
+
 	public String getRoleName() {
 		return roleName;
 	}
