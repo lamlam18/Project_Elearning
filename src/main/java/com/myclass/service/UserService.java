@@ -28,4 +28,6 @@ public interface UserService {
 
 	UserCourseDto getCart(int id);
 
+	boolean deleteCourse(int userId, int courseId);
+
 }

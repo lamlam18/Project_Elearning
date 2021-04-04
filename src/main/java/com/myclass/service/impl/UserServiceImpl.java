@@ -169,4 +169,14 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public boolean deleteCourse(int userId, int courseId) {
+		if (userRepository.findById(userId) != null) {
+			User entity = userRepository.findById(userId).get();
+			entity.getCourses().remove(courseId);
+			return true;
+		}
+		return false;
+	}
+
 }

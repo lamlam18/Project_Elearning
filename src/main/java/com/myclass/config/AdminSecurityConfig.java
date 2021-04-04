@@ -68,8 +68,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
 //		.antMatchers("/api/admin/**")
 //		.hasAnyRole("ADMIN")
 //		.anyRequest()
-//		.authenticated();
-		
+//		.authenticated();		
 		http.addFilter(new AuthFilter(authenticationManager(), userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}

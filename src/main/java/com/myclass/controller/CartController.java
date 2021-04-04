@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,5 +43,16 @@ public class CartController {
 			if (userService.addToCart(userId , courseId))
 				return new ResponseEntity<Object>(HttpStatus.OK);
 		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@DeleteMapping("/{userId},/{courseId}")
+	public Object delete(@PathVariable int userId , @PathVariable int courseId) {
+		try {
+			if (userService.deleteCourse(userId , courseId))
+				return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

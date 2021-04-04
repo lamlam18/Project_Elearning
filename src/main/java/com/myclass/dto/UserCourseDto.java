@@ -40,5 +40,4 @@ public class UserCourseDto {
 		this.roleId = roleId;
 	}
 	
-	
 }
